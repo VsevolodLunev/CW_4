@@ -6,8 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from mailing.models import (AttemptMailing, Mailing, Message,
-                            ReceiveMail)
+from mailing.models import (AttemptMailing, Mailing, Message, ReceiveMail)
 
 from .forms import (MailingForm, MailingModeratorForm, MessageForm,
                     ReceiveMailForm, ReceiveMailModeratorForm)
@@ -36,7 +35,7 @@ class Contacts(TemplateView):
 
     template_name = "mailing/contacts.html"
 
-    def contacts(request):
+    def contacts(self, request):
         if request.method == "POST":
             name = request.POST.get("name")
             message = request.POST.get("message")
@@ -117,7 +116,7 @@ class ReceiveMailListView(ListView):
 class ReceiveMailDetailView(LoginRequiredMixin, DetailView):
     model = ReceiveMail
     form_class = ReceiveMailModeratorForm
-    template_name = "mailing_service/mailing/mailing_detail.html"
+    template_name = "mailing/mailing_detail.html"
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
@@ -131,7 +130,7 @@ class ReceiveMailDetailView(LoginRequiredMixin, DetailView):
 class ReceiveMailCreateView(LoginRequiredMixin, CreateView):
     model = ReceiveMail
     form_class = ReceiveMailForm
-    template_name = "mailing_service/mailing/receivemail_form.html"
+    template_name = "mailing/receivemail_form.html"
     success_url = reverse_lazy("mailing:receivemail_list")
 
     def form_valid(self, form):
@@ -146,7 +145,7 @@ class ReceiveMailCreateView(LoginRequiredMixin, CreateView):
 class ReceiveMailUpdateView(LoginRequiredMixin, UpdateView):
     model = ReceiveMail
     form_class = ReceiveMailForm
-    template_name = "mailing_service/mailing/receivemail_form.html"
+    template_name = "mailing/receivemail_form.html"
     success_url = reverse_lazy("mailing:receivemail_list")
 
     def get_form_class(self):
@@ -158,14 +157,14 @@ class ReceiveMailUpdateView(LoginRequiredMixin, UpdateView):
 
 class ReceiveMailingDeleteView(LoginRequiredMixin, DeleteView):
     model = ReceiveMail
-    template_name = "mailing_service/mailing/receivemail_delete.html"
+    template_name = "mailing/receivemail_delete.html"
     success_url = reverse_lazy("mailing:receivemail_list")
 
 
 class MessageListView(ListView):
     model = Message
     form_class = MessageForm
-    template_name = "mailing_service/mailing/message_list.html"
+    template_name = "mailing/message_list.html"
 
     def get_queryset(self, *args, **kwargs):
 
@@ -176,7 +175,7 @@ class MessageListView(ListView):
 class MessageDetailView(LoginRequiredMixin, DetailView):
     model = Message
     form_class = MessageForm
-    template_name = "mailing_service/mailing/message_detail.html"
+    template_name = "mailing/message_detail.html"
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
@@ -188,7 +187,7 @@ class MessageDetailView(LoginRequiredMixin, DetailView):
 class MessageCreateView(LoginRequiredMixin, CreateView):
     model = Message
     form_class = MessageForm
-    template_name = "mailing_service/mailing/message_form.html"
+    template_name = "mailing/message_form.html"
     success_url = reverse_lazy("mailing:message")
 
     def form_valid(self, form):
@@ -202,7 +201,7 @@ class MessageUpdateView(LoginRequiredMixin, UpdateView):
     model = Message
     form_class = MessageForm
     success_url = reverse_lazy("mailing:message")
-    template_name = "mailing_service/mailing/message_form.html"
+    template_name = "mailing/message_form.html"
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
@@ -214,7 +213,7 @@ class MessageUpdateView(LoginRequiredMixin, UpdateView):
 class MessageDeleteView(LoginRequiredMixin, DeleteView):
     model = Message
     success_url = reverse_lazy("mailing:message")
-    template_name = "mailing_service/mailing/message_delete.html"
+    template_name = "mailing/message_delete.html"
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
@@ -235,7 +234,7 @@ class MailingAttemptCreateView(LoginRequiredMixin, CreateView):
 
 class MailingAttemptListView(LoginRequiredMixin, ListView):
     model = AttemptMailing
-    template_name = "mailing_service/mailing/attemptmailing_list.html"
+    template_name = "mailing/attemptmailing_list.html"
 
     def get_queryset(self, *args, **kwargs):
         if self.request.user:

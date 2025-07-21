@@ -1,10 +1,7 @@
-
 import secrets
-
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import (PasswordResetConfirmView,
-                                       PasswordResetView)
+from django.contrib.auth.views import PasswordResetConfirmView, PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
@@ -12,11 +9,9 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.utils.crypto import get_random_string
-from django.views.generic import (CreateView, DeleteView, DetailView, FormView,
-                                  ListView, UpdateView)
+from django.views.generic import CreateView, DeleteView, DetailView, FormView, ListView, UpdateView
 
-from users.forms import (PasswordRecoveryForm, UserForgotPasswordForm,
-                         UserRegisterForm, UserSetNewPasswordForm,
+from users.forms import (PasswordRecoveryForm, UserForgotPasswordForm, UserRegisterForm, UserSetNewPasswordForm,
                          UserUpdateForm)
 from users.models import User
 from config.settings import EMAIL_HOST_USER
@@ -24,7 +19,7 @@ from config.settings import EMAIL_HOST_USER
 
 def user_logout(request):
     logout(request)
-    return render(request, template_name="mailing/mailing/home.html")
+    return render(request, template_name="mailing/home.html")
 
 
 class UserCreateView(CreateView):

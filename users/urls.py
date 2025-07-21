@@ -4,15 +4,14 @@ from django.urls import path
 
 from users.apps import AuthUsersConfig
 from users.services import block_user
-from users.views import (PasswordRecoveryView, UserCreateView,
-                              UserDeleteView, UserDetailView, UserListView,
-                              UserUpdateView, email_verification, user_logout)
+from users.views import (PasswordRecoveryView, UserCreateView, UserDeleteView, UserDetailView, UserListView,
+                         UserUpdateView, email_verification, user_logout)
 
 app_name = AuthUsersConfig.name
 
 urlpatterns = [
     path(
-        "login/", LoginView.as_view(template_name="auth_users/login.html"), name="login"
+        "login/", LoginView.as_view(template_name="users/login.html"), name="login"
     ),
     path("logout/", user_logout, name="logout"),
     path(
