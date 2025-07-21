@@ -171,6 +171,7 @@ cython_debug/
 .idea
 /.idea/
 idea
+/.idea
 .venv/
 
 # Ruff stuff:
