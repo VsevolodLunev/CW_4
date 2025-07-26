@@ -6,10 +6,15 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from mailing.models import (AttemptMailing, Mailing, Message, ReceiveMail)
+from mailing.models import AttemptMailing, Mailing, Message, ReceiveMail
 
-from .forms import (MailingForm, MailingModeratorForm, MessageForm,
-                    ReceiveMailForm, ReceiveMailModeratorForm)
+from .forms import (
+    MailingForm,
+    MailingModeratorForm,
+    MessageForm,
+    ReceiveMailForm,
+    ReceiveMailModeratorForm,
+)
 
 
 def base(request):
@@ -39,7 +44,7 @@ class Contacts(TemplateView):
         if request.method == "POST":
             name = request.POST.get("name")
             message = request.POST.get("message")
-            return HttpResponse(f"Спасибо, {name}! {message} Сообщение получено.")
+            return HttpResponse(f"Спасибо, " f"{name}! {message} Сообщение получено.")
         return render(request, "mailing/contacts.html")
 
 
@@ -82,9 +87,13 @@ class MailingDetailView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
-        if self.request.user.groups.filter(name="Менеджеры") or self.request.user.is_superuser:
+        if (
+            self.request.user.groups.filter(name="Менеджеры") or self.request.user.is_superuser
+        ):
             return self.object
-        if self.object.owner != self.request.user and not self.request.user.is_superuser:
+        if (
+            self.object.owner != self.request.user and not self.request.user.is_superuser
+        ):
             raise PermissionDenied
         return self.object
 
@@ -122,7 +131,9 @@ class ReceiveMailDetailView(LoginRequiredMixin, DetailView):
         self.object = super().get_object(queryset)
         if self.request.user.is_superuser:
             return self.object
-        if (self.object.owner != self.request.user and not self.request.user.is_superuser):
+        if (
+            self.object.owner != self.request.user and not self.request.user.is_superuser
+        ):
             raise PermissionDenied
         return self.object
 

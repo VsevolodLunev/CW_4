@@ -3,15 +3,27 @@ from django.views.decorators.cache import cache_page
 
 from mailing.apps import MailingServiceConfig
 from mailing.services import block_mailing, run_mail
-from mailing.views import (Contacts, MailingAttemptCreateView,
-                           MailingAttemptListView, MailingCreateView,
-                           MailingDeleteView, MailingDetailView,
-                           MailingListView, MailingUpdateView,
-                           MessageCreateView, MessageDeleteView,
-                           MessageDetailView, MessageListView,
-                           MessageUpdateView, ReceiveMailCreateView,
-                           ReceiveMailDetailView, ReceiveMailingDeleteView,
-                           ReceiveMailListView, ReceiveMailUpdateView, HomeView)
+from mailing.views import (
+    Contacts,
+    MailingAttemptCreateView,
+    MailingAttemptListView,
+    MailingCreateView,
+    MailingDeleteView,
+    MailingDetailView,
+    MailingListView,
+    MailingUpdateView,
+    MessageCreateView,
+    MessageDeleteView,
+    MessageDetailView,
+    MessageListView,
+    MessageUpdateView,
+    ReceiveMailCreateView,
+    ReceiveMailDetailView,
+    ReceiveMailingDeleteView,
+    ReceiveMailListView,
+    ReceiveMailUpdateView,
+    HomeView,
+)
 
 app_name = MailingServiceConfig.name
 

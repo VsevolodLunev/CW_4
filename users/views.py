@@ -9,10 +9,22 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.utils.crypto import get_random_string
-from django.views.generic import CreateView, DeleteView, DetailView, FormView, ListView, UpdateView
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    FormView,
+    ListView,
+    UpdateView,
+)
 
-from users.forms import (PasswordRecoveryForm, UserForgotPasswordForm, UserRegisterForm, UserSetNewPasswordForm,
-                         UserUpdateForm)
+from users.forms import (
+    PasswordRecoveryForm,
+    UserForgotPasswordForm,
+    UserRegisterForm,
+    UserSetNewPasswordForm,
+    UserUpdateForm,
+)
 from users.models import User
 from config.settings import EMAIL_HOST_USER
 
@@ -133,7 +145,7 @@ class PasswordRecoveryView(FormView):
         send_mail(
             subject="Восстановление пароля",
             message=f"Ваш новый пароль: {password}",
-            from_email=EMAIL_HOST_USER,
+            from_email="vsevolodlunev1989@yandex.ru",  # EMAIL_HOST_USER,
             recipient_list=[user.email],
             fail_silently=False,
         )
