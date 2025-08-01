@@ -1,4 +1,4 @@
-from datetime import timezone
+from django.utils import timezone
 
 from django.core.mail import send_mail
 from django.core.management import BaseCommand
@@ -11,7 +11,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         """Функция запуска рассылки по требованию"""
 
-        mailings = Mailing.objects.filter(status__in=Mailing.LAUNCHED)
+        mailings = Mailing.objects.filter(status__in=[Mailing.LAUNCHED])
         for mailing in mailings:
             mailing.status = Mailing.LAUNCHED
             mailing.save()
@@ -29,7 +29,7 @@ class Command(BaseCommand):
                     AttemptMailing.objects.create(
                         date_attempt=timezone.now(),
                         status=AttemptMailing.STATUS_OK,
-                        server_response="Email отправлен",
+                        response="Email отправлен",
                         mailing=mailing,
                     )
                 except Exception as e:
@@ -37,7 +37,7 @@ class Command(BaseCommand):
                     AttemptMailing.objects.create(
                         date_attempt=timezone.now(),
                         status=AttemptMailing.STATUS_NOK,
-                        server_response=str(e),
+                        response=str(e),
                         mailing=mailing,
                     )
             if mailing.end_sending and mailing.end_sending <= timezone.now():

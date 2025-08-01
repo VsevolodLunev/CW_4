@@ -31,7 +31,6 @@
                 </thead>
                 {% for object in object_list %}
                 <tr>
-                    {% if user.is_superuser or object.owner == user or user.is_staff %}
                     <td>{{ object.message|truncatechars:30 }}</td>
                     <td>{{ object.first_sending|date:"d M Y" }}</td>
                     <td>{{ object.end_sending|date:"d M Y" }}</td>
@@ -59,7 +58,6 @@
                         <a class="btn btn-danger btn-sm" href="{% url 'mailing:mailing_delete' object.pk%}">Удалить</a>
                         <a class="btn btn-secondary btn-sm" href="{% url 'mailing:run_mail' object.pk%}">Запустить &raquo;</a>
                         {% endif %}
-                    {% endif %}
                     </td>
                 {% endfor%}
                 </tr>
