@@ -27,6 +27,7 @@ def run_mail(request, pk):
                 status=AttemptMailing.STATUS_OK,
                 response="Email отправлен",
                 mailing=mailing,
+                owner=mailing.owner,
             )
         except Exception as e:
             print(f"Ошибка при отправке письма для {recipient.mail}: {str(e)}")
@@ -35,6 +36,7 @@ def run_mail(request, pk):
                 status=AttemptMailing.STATUS_NOK,
                 response=str(e),
                 mailing=mailing,
+                owner=mailing.owner,
             )
     if mailing.end_sending and mailing.end_sending <= timezone.now():
         # Если время рассылки закончилось, обновляем статус на "завершено"

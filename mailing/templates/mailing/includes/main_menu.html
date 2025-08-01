@@ -44,11 +44,13 @@
                                 <li>
                                     <a class="dropdown-item" href="{% url 'users:logout' %}" method="post">Выход</a>
                                 </li>
-                                 {% if user.is_authenticated %}
+                                {% if user.is_authenticated %}
                                 <li><a class="dropdown-item" href="{% url 'users:user_detail' user.pk%}">Профиль</a></li>
                                 <li>
+                                    {% if user.is_superuser or user.is_staff %}
                                     <a class="dropdown-item" href="{% url 'users:user_list' %}">Список пользователей</a>
                                 </li>
+                                    {% endif %}
                                 {% endif %}
                                 {% else %}
                                 <li>
